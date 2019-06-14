@@ -44,7 +44,10 @@
 						<button class="icon-italic" :class="{ 'is-active': isActive.em() }" @click="commands.em" />
 						<button class="icon-strike" :class="{ 'is-active': isActive.strike() }" @click="commands.strike" />
 						<button class="icon-code" :class="{ 'is-active': isActive.code() }" @click="commands.code" />
-
+						<button
+							class="icon-checkmark"
+							:class="{ 'is-active': isActive.todo_list() }"
+							@click="commands.todo_list" />
 						<button	:class="{ 'is-active': isActive.heading({ level: 1 }) }" @click="commands.heading({ level: 1 })">
 							H1
 						</button>

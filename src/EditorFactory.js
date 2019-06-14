@@ -25,7 +25,6 @@ import {
 	Heading,
 	Code,
 	Link,
-	BulletList,
 	OrderedList,
 	ListItem,
 	Blockquote,
@@ -36,6 +35,10 @@ import {
 } from 'tiptap-extensions'
 import { Strong, Italic, Strike } from './marks'
 import MarkdownIt from 'markdown-it'
+import taskLists from 'markdown-it-task-lists'
+import TodoItem from './nodes/TodoItem'
+import TodoList from './nodes/TodoList'
+import BulletList from './nodes/BulletList'
 
 import { MarkdownSerializer, defaultMarkdownSerializer } from 'prosemirror-markdown'
 
@@ -59,13 +62,16 @@ const createEditor = ({ content, onUpdate, extensions }) => {
 			new ListItem(),
 			new Link(),
 			new Image(),
-			new History()
+			new History(),
+			new TodoList(),
+			new TodoItem({ nested: true })
 		].concat(extensions)
 	})
 }
 
 const markdownit = MarkdownIt('commonmark', { html: false, breaks: false })
 	.enable('strikethrough')
+	.use(taskLists, { enable: true, label: true, labelAfter: true })
 
 const createMarkdownSerializer = (_nodes, _marks) => {
 	const nodes = Object

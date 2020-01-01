@@ -75,10 +75,11 @@ import { createEditor, markdownit, createMarkdownSerializer, serializePlainText,
 
 import { EditorContent } from 'tiptap'
 import { Collaboration } from 'tiptap-extensions'
-import { Keymap } from './../extensions'
+import { Keymap, UserColor } from './../extensions'
 import isMobile from './../mixins/isMobile'
-
 import Tooltip from '@nextcloud/vue/dist/Directives/Tooltip'
+import { getVersion, receiveTransaction } from 'prosemirror-collab'
+import { Step } from 'prosemirror-transform'
 
 const EDITOR_PUSH_DEBOUNCE = 200
 
@@ -315,6 +316,34 @@ export default {
 											this.syncService.sendSteps()
 										}
 									},
+									update: ({ steps, version, editor }) => {
+										const { state, view, schema } = editor
+
+										if (getVersion(state) > version) {
+											return
+										}
+
+										const tr = receiveTransaction(
+											state,
+											steps.map(item => Step.fromJSON(schema, item.step)),
+											steps.map(item => item.clientID),
+										)
+										tr.setMeta('clientID', steps[0].clientID)
+										view.dispatch(tr)
+									},
+								}),
+								new UserColor({
+									clientID: this.currentSession.id,
+									color: (clientID) => {
+										const session = this.sessions.find(item => '' + item.id === '' + clientID)
+										return session ? session.color : '#aaa'
+									},
+									name: (clientID) => {
+										const session = this.sessions.find(item => '' + item.id === '' + clientID)
+										return session ? (
+											session.userId ? session.userId : session.guestName
+										) : null
+									},
 								}),
 								new Keymap({
 									'Ctrl-s': () => {
@@ -338,10 +367,14 @@ export default {
 				.on('sync', ({ steps, document }) => {
 					this.hasConnectionIssue = false
 					try {
-						this.tiptap.extensions.options.collaboration.update({
-							version: document.currentVersion,
-							steps: steps,
-						})
+						for (let i = 0; i < steps.length; i++) {
+							// FIXME: seems pretty bad performance wise (maybe grouping the steps by user in the backend would be good)
+							this.tiptap.extensions.options.collaboration.update({
+								version: document.currentVersion,
+								steps: [steps[i]],
+								editor: this.tiptap,
+							})
+						}
 						this.syncService.state = this.tiptap.state
 						this.updateLastSavedStatus()
 					} catch (e) {

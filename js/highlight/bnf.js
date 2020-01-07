@@ -1,2 +1,42 @@
-(window.textWebpackJsonp=window.textWebpackJsonp||[]).push([[22],{206:function(n,t){n.exports=function(n){return{contains:[{className:"attribute",begin:/</,end:/>/},{begin:/::=/,starts:{end:/$/,contains:[{begin:/</,end:/>/},n.C_LINE_COMMENT_MODE,n.C_BLOCK_COMMENT_MODE,n.APOS_STRING_MODE,n.QUOTE_STRING_MODE]}}]}}}}]);
-//# sourceMappingURL=bnf.js.map?v=3c1e1560a3a37888bb4e
+(window["textWebpackJsonp"] = window["textWebpackJsonp"] || []).push([["highlight/bnf"],{
+
+/***/ "./node_modules/highlight.js/lib/languages/bnf.js":
+/*!********************************************************!*\
+  !*** ./node_modules/highlight.js/lib/languages/bnf.js ***!
+  \********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function(hljs){
+  return {
+    contains: [
+      // Attribute
+      {
+        className: 'attribute',
+        begin: /</, end: />/
+      },
+      // Specific
+      {
+        begin: /::=/,
+        starts: {
+          end: /$/,
+          contains: [
+            {
+              begin: /</, end: />/
+            },
+            // Common
+            hljs.C_LINE_COMMENT_MODE,
+            hljs.C_BLOCK_COMMENT_MODE,
+            hljs.APOS_STRING_MODE,
+            hljs.QUOTE_STRING_MODE
+          ]
+        }
+      }
+    ]
+  };
+};
+
+/***/ })
+
+}]);
+//# sourceMappingURL=bnf.js.map?v=3390749f96170ab6adfc

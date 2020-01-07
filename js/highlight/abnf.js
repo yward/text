@@ -1,2 +1,81 @@
-(window.textWebpackJsonp=window.textWebpackJsonp||[]).push([[3],{187:function(s,e){s.exports=function(s){var e="^[a-zA-Z][a-zA-Z0-9-]*",a="[!@#$^&',?+~`|:]",n=s.COMMENT(";","$"),i={className:"attribute",begin:e+"(?=\\s*=)"};return{illegal:a,keywords:["ALPHA","BIT","CHAR","CR","CRLF","CTL","DIGIT","DQUOTE","HEXDIG","HTAB","LF","LWSP","OCTET","SP","VCHAR","WSP"].join(" "),contains:[i,n,{className:"symbol",begin:/%b[0-1]+(-[0-1]+|(\.[0-1]+)+){0,1}/},{className:"symbol",begin:/%d[0-9]+(-[0-9]+|(\.[0-9]+)+){0,1}/},{className:"symbol",begin:/%x[0-9A-F]+(-[0-9A-F]+|(\.[0-9A-F]+)+){0,1}/},{className:"symbol",begin:/%[si]/},s.QUOTE_STRING_MODE,s.NUMBER_MODE]}}}}]);
-//# sourceMappingURL=abnf.js.map?v=0643a4d01ac7785f4b24
+(window["textWebpackJsonp"] = window["textWebpackJsonp"] || []).push([["highlight/abnf"],{
+
+/***/ "./node_modules/highlight.js/lib/languages/abnf.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/highlight.js/lib/languages/abnf.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function(hljs) {
+    var regexes = {
+        ruleDeclaration: "^[a-zA-Z][a-zA-Z0-9-]*",
+        unexpectedChars: "[!@#$^&',?+~`|:]"
+    };
+
+    var keywords = [
+        "ALPHA",
+        "BIT",
+        "CHAR",
+        "CR",
+        "CRLF",
+        "CTL",
+        "DIGIT",
+        "DQUOTE",
+        "HEXDIG",
+        "HTAB",
+        "LF",
+        "LWSP",
+        "OCTET",
+        "SP",
+        "VCHAR",
+        "WSP"
+    ];
+
+    var commentMode = hljs.COMMENT(";", "$");
+
+    var terminalBinaryMode = {
+        className: "symbol",
+        begin: /%b[0-1]+(-[0-1]+|(\.[0-1]+)+){0,1}/
+    };
+
+    var terminalDecimalMode = {
+        className: "symbol",
+        begin: /%d[0-9]+(-[0-9]+|(\.[0-9]+)+){0,1}/
+    };
+
+    var terminalHexadecimalMode = {
+        className: "symbol",
+        begin: /%x[0-9A-F]+(-[0-9A-F]+|(\.[0-9A-F]+)+){0,1}/,
+    };
+
+    var caseSensitivityIndicatorMode = {
+        className: "symbol",
+        begin: /%[si]/
+    };
+
+    var ruleDeclarationMode = {
+        className: "attribute",
+        begin: regexes.ruleDeclaration + '(?=\\s*=)',
+    };
+
+    return {
+      illegal: regexes.unexpectedChars,
+      keywords: keywords.join(" "),
+      contains: [
+          ruleDeclarationMode,
+          commentMode,
+          terminalBinaryMode,
+          terminalDecimalMode,
+          terminalHexadecimalMode,
+          caseSensitivityIndicatorMode,
+          hljs.QUOTE_STRING_MODE,
+          hljs.NUMBER_MODE
+      ]
+    };
+};
+
+/***/ })
+
+}]);
+//# sourceMappingURL=abnf.js.map?v=c24d20971b57c09d4147

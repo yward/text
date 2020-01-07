@@ -1,2 +1,53 @@
-(window.textWebpackJsonp=window.textWebpackJsonp||[]).push([[51],{235:function(n,a){n.exports=function(n){var a=n.COMMENT(/\(\*/,/\*\)/);return{illegal:/\S/,contains:[a,{className:"attribute",begin:/^[ ]*[a-zA-Z][a-zA-Z-_]*([\s-_]+[a-zA-Z][a-zA-Z]*)*/},{begin:/=/,end:/[.;]/,contains:[a,{className:"meta",begin:/\?.*\?/},{className:"string",variants:[n.APOS_STRING_MODE,n.QUOTE_STRING_MODE,{begin:"`",end:"`"}]}]}]}}}}]);
-//# sourceMappingURL=ebnf.js.map?v=8894fd561c2d88624c8e
+(window["textWebpackJsonp"] = window["textWebpackJsonp"] || []).push([["highlight/ebnf"],{
+
+/***/ "./node_modules/highlight.js/lib/languages/ebnf.js":
+/*!*********************************************************!*\
+  !*** ./node_modules/highlight.js/lib/languages/ebnf.js ***!
+  \*********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function(hljs) {
+    var commentMode = hljs.COMMENT(/\(\*/, /\*\)/);
+
+    var nonTerminalMode = {
+        className: "attribute",
+        begin: /^[ ]*[a-zA-Z][a-zA-Z-_]*([\s-_]+[a-zA-Z][a-zA-Z]*)*/
+    };
+
+    var specialSequenceMode = {
+        className: "meta",
+        begin: /\?.*\?/
+    };
+
+    var ruleBodyMode = {
+        begin: /=/, end: /[.;]/,
+        contains: [
+            commentMode,
+            specialSequenceMode,
+            {
+              // terminals
+              className: 'string',
+              variants: [
+                hljs.APOS_STRING_MODE,
+                hljs.QUOTE_STRING_MODE,
+                {begin: '`', end: '`'},
+              ]
+            },
+        ]
+    };
+
+    return {
+        illegal: /\S/,
+        contains: [
+            commentMode,
+            nonTerminalMode,
+            ruleBodyMode
+        ]
+    };
+};
+
+/***/ })
+
+}]);
+//# sourceMappingURL=ebnf.js.map?v=a66b4e8804b59cd7f39f

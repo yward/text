@@ -1,2 +1,28 @@
-(window.textWebpackJsonp=window.textWebpackJsonp||[]).push([[154],{338:function(n,s){n.exports=function(n){return{aliases:["console"],contains:[{className:"meta",begin:"^\\s{0,3}[/\\w\\d\\[\\]()@-]*[>%$#]",starts:{end:"$",subLanguage:"bash"}}]}}}}]);
-//# sourceMappingURL=shell.js.map?v=fbca12bc6e6d3fa1f2f9
+(window["textWebpackJsonp"] = window["textWebpackJsonp"] || []).push([["highlight/shell"],{
+
+/***/ "./node_modules/highlight.js/lib/languages/shell.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/highlight.js/lib/languages/shell.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function(hljs) {
+  return {
+    aliases: ['console'],
+    contains: [
+      {
+        className: 'meta',
+        begin: '^\\s{0,3}[/\\w\\d\\[\\]()@-]*[>%$#]',
+        starts: {
+          end: '$', subLanguage: 'bash'
+        }
+      }
+    ]
+  }
+};
+
+/***/ })
+
+}]);
+//# sourceMappingURL=shell.js.map?v=b63fedb569ecdb342eec

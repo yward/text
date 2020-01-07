@@ -65,6 +65,7 @@ const callMobileMessage = (messageName, attributes) => {
 		attributesString = null
 	}
 
+	console.log("typeof window.DirectEditingMobileInterface: " + typeof window.DirectEditingMobileInterface);
 	// Forward to mobile handler
 	if (window.DirectEditingMobileInterface && typeof window.DirectEditingMobileInterface[messageName] === 'function') {
 		if (attributesString === null || typeof attributesString === 'undefined') {

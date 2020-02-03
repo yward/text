@@ -39,8 +39,8 @@
 			:mime="file.mimetype"
 			:autofocus="autofocus"
 			@ready="ready=true"
-			@focus="focus=true"
-			@blur="focus=false"
+			@focus="triggerFocus"
+			@blur="triggerBlur"
 			@error="reset" />
 	</div>
 </template>
@@ -73,6 +73,7 @@ export default {
 			autofocus: false,
 			darkTheme: OCA.Accessibility.theme === 'dark',
 			enabled: OCA.Text.RichWorkspaceEnabled,
+			timeout: null,
 		}
 	},
 	computed: {
@@ -140,6 +141,16 @@ export default {
 				this.autofocus = true
 			})
 		},
+		triggerFocus() {
+			clearTimeout(this.timeout)
+			this.focus = true
+		},
+		triggerBlur() {
+			clearTimeout(this.timeout)
+			setTimeout(() => {
+				this.focus = false
+			}, 10000)
+		}
 	},
 }
 </script>
@@ -151,6 +162,7 @@ export default {
 		/* Slightly reduce vertical space */
 		margin-bottom: -24px;
 		text-align: left;
+		max-height: 50vh;
 	}
 
 	/* For subfolders, where there are no Recommendations */
@@ -162,6 +174,11 @@ export default {
 		padding-top: 43px;
 		color: var(--color-text-maxcontrast);
 		height: 0;
+	}
+
+	#rich-workspace::v-deep .popovermenu {
+		overflow: auto;
+		max-height: 20vh;
 	}
 
 	#rich-workspace::v-deep div[contenteditable=false] {
@@ -185,7 +202,6 @@ export default {
 	#rich-workspace::v-deep #editor {
 		padding-bottom: 80px;
 		overflow: scroll !important;
-		height: 50vh;
 	}
 
 	#rich-workspace::v-deep #editor-wrapper .ProseMirror {

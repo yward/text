@@ -22,7 +22,7 @@
 
 <template>
 	<EditorMenuBar v-slot="{ commands, isActive, focused }" :editor="editor">
-		<div class="menubar" :class="{ 'is-focused': focused, 'autohide': autohide }">
+		<div class="menubar" :class="{ 'is-focused': inside || focused, 'autohide': autohide }" @mousedown="inside=true" v-click-outside="inside=false">
 			<div v-if="isRichEditor" ref="menubar" class="menubar-icons">
 				<template v-for="(icon, $index) in allIcons">
 					<button v-if="icon.class"
@@ -120,6 +120,7 @@ export default {
 			forceRecompute: 0,
 			submenuVisibility: {},
 			icons: [...menuBarIcons],
+			inside: false,
 		}
 	},
 	computed: {
